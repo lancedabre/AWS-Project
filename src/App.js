@@ -24,17 +24,19 @@ function App({ signOut, user }) {
 
     setStatus("Uploading...");
     try {
-      const fileName = `${Date.now()}-${file.name}`;
+      // ... inside handleSubmitReport ...
 
-      // --- THIS IS THE CORRECTED UPLOAD LOGIC ---
-      const uploadTask = uploadData({
-        key: fileName,
-        data: file,
-        options: {
-          level: 'public', // This 'public' is misleading. It means 'public' in the Amplify sense (all signed-in users)
-          contentType: file.type,
-        }
-      });
+const fileName = `${Date.now()}-${file.name}`;
+
+const uploadTask = uploadData({
+  // V6 requires the full 'path' string, including 'public/'
+  path: `public/${fileName}`, 
+  data: file,
+  options: {
+    contentType: file.type,
+    // 'level' is removed in V6; it is now part of the 'path' above
+  }
+});
 
       // Wait for the upload to complete
       await uploadTask.result;
