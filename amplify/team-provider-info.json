@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-maintenancereporter-dev-36850-authRole",
+      "UnauthRoleArn": "arn:aws:iam::886252661946:role/amplify-maintenancereporter-dev-36850-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::886252661946:role/amplify-maintenancereporter-dev-36850-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-maintenancereporter-dev-36850-deployment",
+      "UnauthRoleName": "amplify-maintenancereporter-dev-36850-unauthRole",
+      "StackName": "amplify-maintenancereporter-dev-36850",
+      "StackId": "arn:aws:cloudformation:eu-north-1:886252661946:stack/amplify-maintenancereporter-dev-36850/2e10c990-c3e3-11f0-9706-0a9d6589a9f5",
+      "AmplifyAppId": "d38z0enqwxfi40"
+    },
+    "categories": {
+      "auth": {
+        "maintenancereporter48994ffe": {}
+      },
+      "storage": {
+        "resource": {}
+      }
+    }
+  }
+}
