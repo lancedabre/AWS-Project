@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
-import { Storage } from '@aws-amplify/storage'; // Correct import
+import { uploadData } from '@aws-amplify/storage'; // <-- CORRECTED IMPORT
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports'; // This file is auto-generated
@@ -26,13 +26,22 @@ function App({ signOut, user }) {
     try {
       const fileName = `${Date.now()}-${file.name}`;
 
-      // 'Storage.put' handles all the security and signs the request!
-      await Storage.put(fileName, file, {
-        contentType: file.type,
-        level: 'public' // This 'public' is misleading. It means 'public' in the Amplify sense (all signed-in users)
+      // --- THIS IS THE CORRECTED UPLOAD LOGIC ---
+      const uploadTask = uploadData({
+        key: fileName,
+        data: file,
+        options: {
+          level: 'public', // This 'public' is misleading. It means 'public' in the Amplify sense (all signed-in users)
+          contentType: file.type,
+        }
       });
 
+      // Wait for the upload to complete
+      await uploadTask.result;
+      // --- END OF CORRECTION ---
+
       setStatus(`Success! Report ${fileName} submitted.`);
+      setFile(null); // Clear the file input
     } catch (error) {
       console.error('Error uploading file:', error);
       setStatus("Error uploading file.");
@@ -44,7 +53,7 @@ function App({ signOut, user }) {
       <h1>Hello, {user.username}!</h1>
       <h3>Submit Maintenance Report</h3>
       <input type="file" accept="image/*" onChange={handleFileChange} />
-      <button onClick={handleSubmitReport} style={{ marginLeft: '10px' }}>
+      <button onClick={handleSubmitReport} style={{ marginLeft: '10px' }} disabled={!file}>
         Submit
       </button>
       <p><strong>Status:</strong> {status}</p>
@@ -53,4 +62,4 @@ function App({ signOut, user }) {
   );
 }
 
-export default withAuthenticator(App); // Wraps your app in a Sign-in/Sign-up form
+export default withAuthenticator(App);
