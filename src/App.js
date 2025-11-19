@@ -161,7 +161,7 @@ function App({ signOut, user }) {
                       {inventory.length === 0 ? (
                         <tr><td colSpan="3" style={{padding:'20px', textAlign:'center', color:'#999'}}>No items found.</td></tr>
                       ) : inventory.map((row) => (
-                          <tr key={row.itemID} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                          <tr key={row.reportID} style={{ borderBottom: '1px solid #f3f4f6' }}>
                               <td style={{ padding: '12px 10px', fontWeight: 'bold', color:'#1f2937' }}>{row.name}</td>
                               <td style={{ padding: '12px 10px', color:'#4b5563' }}>{row.location}</td>
                               <td style={{ padding: '12px 10px' }}>
