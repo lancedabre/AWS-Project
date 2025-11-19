@@ -30,10 +30,21 @@ function App({ signOut, user }) {
     try {
         const response = await fetch(API_URL, { method: 'GET' });
         const data = await response.json();
-        const sorted = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        setInventory(sorted);
+
+        console.log("DEBUG - API Response:", data); // <--- THIS IS KEY
+
+        // Check if data is actually an array (list)
+        if (Array.isArray(data)) {
+            const sorted = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            setInventory(sorted);
+        } else {
+            // If it's not an array, it's likely an error object
+            console.error("API Error:", data);
+            setStatusMessage(`⚠️ System Error: ${data.message || JSON.stringify(data)}`);
+        }
     } catch (error) {
-        console.error("Error fetching:", error);
+        console.error("Network Error:", error);
+        setStatusMessage("❌ Critical Network Error");
     } finally {
         setIsLoading(false);
     }
