@@ -8,7 +8,7 @@ import './App.css';
 Amplify.configure(awsExports);
 
 // --- CONFIGURATION ---
-const API_URL = 'YOUR_API_GATEWAY_INVOKE_URL_HERE'; // <-- PASTE YOUR URL HERE
+const API_URL = 'https://ait7emkdle.execute-api.eu-north-1.amazonaws.com/prod/items'; // <-- PASTE YOUR URL HERE
 
 function App({ signOut, user }) {
   // Navigation State
